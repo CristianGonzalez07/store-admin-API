@@ -4,6 +4,7 @@ import jsonwebtoken from "jsonwebtoken";
 import MongoService from "../services/index.js";
 
 const UsersService = new MongoService("Users");
+const ProductsService = new MongoService("Products");
 
 dotenv.config();
 
@@ -59,6 +60,19 @@ const resolvers = {
         console.log("error: ", res)
       }
     },
+    async addProduct(parent, { product }, { authorization }) {
+      let token = authCheck(authorization);
+      if(token){
+        const [res,error] = await ProductsService.create(product);
+        if(!error){
+          return "Success"
+        }else{
+          console.log("error: ", res)
+        }
+      }else{
+        return "Error"
+      }
+    }
   },
 };
 

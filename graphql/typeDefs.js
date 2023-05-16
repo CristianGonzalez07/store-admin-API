@@ -37,6 +37,16 @@ const typeDefs = `
     password: String!
   }
 
+  # Entrada para crear un producto
+  input ProductInput {
+    title:String!
+    description:String!
+    img:String!
+    price:Float!
+    category:String!
+    stock:Int!
+  }
+
   # Entrada para autenticar un usuario
   input LoginInput {
     email: String!
@@ -53,6 +63,8 @@ const typeDefs = `
   type Mutation {
     # Registra un nuevo usuario
     signUp(user: UserInput!): String
+    # Registra un nuevo producto
+    addProduct(product: ProductInput!): String
   }
 `;
 
