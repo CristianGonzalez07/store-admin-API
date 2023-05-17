@@ -56,8 +56,11 @@ const typeDefs = `
 
   # Consultas disponibles
   type Query {
-    # autentica un usuario
+    # Autentica un usuario
     login(user: LoginInput!): String
+
+    # obtiene un listado de productos
+    getProducts: [Product]
   }
 
   # Mutaciones disponibles

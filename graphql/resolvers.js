@@ -27,8 +27,8 @@ const authCheck = (token) => {
 const resolvers = {
   Query: {
     async login(parent, { user }, { authorization }) {
-      const storedUser = await UsersService.get({email:user.email});
-      if(storedUser){
+      const [storedUser,error] = await UsersService.get({email:user.email});
+      if(storedUser && !error){
         let auth = null;
         await bcrypt.compare(user.password, storedUser.password) 
         .then(function(result) {
@@ -42,6 +42,15 @@ const resolvers = {
           }
         });
         return auth ? JSON.stringify(auth) : "Error"
+      }else{
+        console.log({error,storedUser})
+        return "Error"
+      }
+    },
+    async getProducts(parent, args , { authorization }) {
+      let token = authCheck(authorization);
+      if(token){
+        return await ProductsService.getAll([]);
       }else{
         return "Error"
       }
@@ -64,6 +73,9 @@ const resolvers = {
     async addProduct(parent, { product }, { authorization }) {
       let token = authCheck(authorization);
       if(token){
+        const date = new Date().toISOString();
+        product.created_at = date;
+        product.updated_at = date;
         const [res,error] = await ProductsService.create(product);
         if(!error){
           return "Success"
@@ -78,6 +90,8 @@ const resolvers = {
       let token = authCheck(authorization);
       if(token){
         const product_id = product._id;
+        const date = new Date().toISOString();
+        product.updated_at = date;
         delete product._id;
         const [res,error] = await ProductsService.update({_id:new ObjectId(product_id)}, product);
         if(!error){

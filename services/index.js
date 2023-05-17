@@ -12,11 +12,10 @@ class MongoService {
   }
 
   async getAll(query) {
-    const result = await this.mongoDB.getAll(this.collection, query);
-    return result;
+    return await this.mongoDB.getAll(this.collection, query);
   }
 
-  async create(query) {
+  async create(data) {
     return this.mongoDB.create(this.collection, data);
   }
 
