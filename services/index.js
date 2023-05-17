@@ -23,6 +23,10 @@ class MongoService {
   async update(query, data) {
     return this.mongoDB.update(this.collection, query, data);
   }
+
+  async delete(query) {
+    return this.mongoDB.delete(this.collection, query);
+  }
 }
 
 export default MongoService;

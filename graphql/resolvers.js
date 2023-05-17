@@ -88,6 +88,19 @@ const resolvers = {
       }else{
         return "Error"
       }
+    },
+    async deleteProduct(parent, { id }, { authorization }) {
+      let token = authCheck(authorization);
+      if(token){
+        const [res,error] = await ProductsService.delete({_id:new ObjectId(id)});
+        if(!error){
+          return "Success"
+        }else{
+          console.log("error: ", res)
+        }
+      }else{
+        return "Error"
+      }
     }
   },
 };

@@ -68,6 +68,8 @@ const typeDefs = `
     addProduct(product: ProductInput!): String
     # Registra un producto existente
     editProduct(product: ProductInput!): String
+    # Elimina un producto existente
+    deleteProduct(id: String!): String
   }
 `;
 
