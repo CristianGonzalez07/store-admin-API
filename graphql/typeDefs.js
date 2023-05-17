@@ -79,6 +79,9 @@ const typeDefs = `
 
     # Elimina un producto existente
     deleteProduct(id: String!): String
+
+    # Registra una nueva venta
+    sellProduct(product_id: String!, amount:Float!): String
   }
 `;
 

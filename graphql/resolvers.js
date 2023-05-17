@@ -6,6 +6,7 @@ import { ObjectId } from "mongodb";
 
 const UsersService = new MongoService("Users");
 const ProductsService = new MongoService("Products");
+const SalesService = new MongoService("Sales");
 
 dotenv.config();
 
@@ -120,6 +121,20 @@ const resolvers = {
       let token = authCheck(authorization);
       if(token){
         const [res,error] = await ProductsService.createMany(products);
+        if(!error){
+          return "Success"
+        }else{
+          console.log("error: ", res)
+        }
+      }else{
+        return "Error"
+      }
+    },
+    async sellProduct(parent, { product_id, amount }, { authorization }) {
+      let token = authCheck(authorization);
+      if(token){
+        const date = new Date().toISOString();
+        const [res,error] = await SalesService.create({product_id: new ObjectId(product_id), amount, date});
         if(!error){
           return "Success"
         }else{
