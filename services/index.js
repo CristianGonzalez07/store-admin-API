@@ -19,6 +19,10 @@ class MongoService {
   async create(query) {
     return this.mongoDB.create(this.collection, query);
   }
+
+  async update(query, data) {
+    return this.mongoDB.update(this.collection, query, data);
+  }
 }
 
 export default MongoService;

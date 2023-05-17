@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import dotenv from 'dotenv';
 import jsonwebtoken from "jsonwebtoken";
 import MongoService from "../services/index.js";
+import { ObjectId } from "mongodb";
 
 const UsersService = new MongoService("Users");
 const ProductsService = new MongoService("Products");
@@ -64,6 +65,21 @@ const resolvers = {
       let token = authCheck(authorization);
       if(token){
         const [res,error] = await ProductsService.create(product);
+        if(!error){
+          return "Success"
+        }else{
+          console.log("error: ", res)
+        }
+      }else{
+        return "Error"
+      }
+    },
+    async editProduct(parent, { product }, { authorization }) {
+      let token = authCheck(authorization);
+      if(token){
+        const product_id = product._id;
+        delete product._id;
+        const [res,error] = await ProductsService.update({_id:new ObjectId(product_id)}, product);
         if(!error){
           return "Success"
         }else{

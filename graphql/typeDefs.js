@@ -37,8 +37,9 @@ const typeDefs = `
     password: String!
   }
 
-  # Entrada para crear un producto
+  # Entrada para crear/editar un producto
   input ProductInput {
+    _id:String
     title:String!
     description:String!
     img:String!
@@ -65,6 +66,8 @@ const typeDefs = `
     signUp(user: UserInput!): String
     # Registra un nuevo producto
     addProduct(product: ProductInput!): String
+    # Registra un producto existente
+    editProduct(product: ProductInput!): String
   }
 `;
 
