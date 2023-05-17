@@ -64,10 +64,16 @@ const typeDefs = `
   type Mutation {
     # Registra un nuevo usuario
     signUp(user: UserInput!): String
+    
     # Registra un nuevo producto
     addProduct(product: ProductInput!): String
+
+    # Registra un nuevo producto
+    addMultipleProducts(products: [ProductInput!]): String
+
     # Registra un producto existente
     editProduct(product: ProductInput!): String
+
     # Elimina un producto existente
     deleteProduct(id: String!): String
   }

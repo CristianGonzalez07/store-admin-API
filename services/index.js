@@ -17,7 +17,11 @@ class MongoService {
   }
 
   async create(query) {
-    return this.mongoDB.create(this.collection, query);
+    return this.mongoDB.create(this.collection, data);
+  }
+
+  async createMany(data) {
+    return this.mongoDB.createMany(this.collection, data);
   }
 
   async update(query, data) {

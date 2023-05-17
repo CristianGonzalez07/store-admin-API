@@ -101,7 +101,20 @@ const resolvers = {
       }else{
         return "Error"
       }
-    }
+    },
+    async addMultipleProducts(parent, { products }, { authorization }) {
+      let token = authCheck(authorization);
+      if(token){
+        const [res,error] = await ProductsService.createMany(products);
+        if(!error){
+          return "Success"
+        }else{
+          console.log("error: ", res)
+        }
+      }else{
+        return "Error"
+      }
+    },
   },
 };
 
